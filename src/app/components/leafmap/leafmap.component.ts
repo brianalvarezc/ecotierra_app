@@ -29,6 +29,8 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
     this.registrador.borrar_puntos.subscribe( data => this.iniciarMapa());
 
     // this.registrador.deshacer_punto.subscribe( data => this.deshacerPunto());
+
+    // borra el último poligono hecho
   }
 
   // necesarios para inicializar el mapa
@@ -49,8 +51,10 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
   
   // definicion del mapa
   map:L.Map = new L.Map(this.div_mapa);
-  // definicion del marcador
-  markers:L.LatLngExpression[] = [];
+  // guardar los marcadores para dibujar el poligono
+  markers:L.Marker[] = [];
+  // guardar los poligonos para borrarlos o no
+  polygons:L.Polygon[] = [];
   
 
   // funcion que inicia el mapa luego de renderizar la vista de app-leafmap
@@ -96,8 +100,10 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
   }
 
   ponerMarcador(){
-    let marker = new L.Marker([this.punto.latitud, this.punto.longitud]);
-    this.markers.push(marker.getLatLng());
+    let marker = new L.Marker([this.punto.latitud, this.punto.longitud], {draggable: true});
+    this.removePolygons();
+    marker.on("dragend", evento => this.marker_dragged(evento, marker));
+    this.markers.push(marker);
     marker.addTo(this.map);
     this.map.setView([this.punto.latitud, this.punto.longitud], this.zoom)
   }
@@ -110,10 +116,11 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
   }
 
   crearPoligono(){
-    let polygon = L.polygon(this.markers, { color: "red"})
+    let polygon = L.polygon(this.markers.map(marker => marker.getLatLng()), { color: "red"})
     polygon.addTo(this.map)
+    this.polygons.push(polygon);
     // se limpia los marcadores para poder dibujar nuevos poligonos luego de crear uno
-    this.markers = [];
+    // this.markers = [];
   }
 
   deshacerPunto(){
@@ -124,6 +131,16 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
     this.registrador.mostrar_punto.emit({
       data: this.punto
     });
+  }
+
+  marker_dragged(event:L.LeafletEvent, marker:L.Marker){
+    this.markers[this.markers.indexOf( marker )].setLatLng(event.target._latlng);
+    this.removePolygons();
+    this.crearPoligono();
+  }
+
+  removePolygons(){
+    this.polygons.forEach( polygon => polygon.remove());
   }
 
 }

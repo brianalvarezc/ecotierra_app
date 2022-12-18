@@ -1,23 +1,77 @@
 <div class="registrador">
-    <h5>Registrador</h5>
-    Latitud:
-    <input type="text" class="form-control" [(ngModel)]="punto.latitud">
-    Longitud:
-    <input type="text" class="form-control" [(ngModel)]="punto.longitud">
-    <br>
-    <div class="d-flex justify-content-between">
-    </div>
     <div class="row">
         <div class="col-sm">
-            <button class="btn btn-success" (click)="enviarPunto()">Poner Marcador</button>
-            &nbsp;
-            <button class="btn btn-secondary" (click)="deshacerPunto()">Guardar punto</button>
+            Latitud:
+            <input type="text" placeholder="" class="form-control form-control-sm" [(ngModel)]="punto.latitud">
         </div>
         <div class="col-sm">
-            <button class="btn btn-primary" (click)="crearPoligono()">Crear pol&iacute;gono</button>
-            &nbsp;
-            <button class="btn btn-danger" (click)="borrarPuntos()">Restablecer mapa</button>
+            Longitud:
+            <input type="text" placeholder="" class="form-control form-control-sm" [(ngModel)]="punto.longitud">
         </div>
     </div>
-
+    <br>
+    <div class="d-flex justify-content-between">
+        <button title="Enviar Punto al mapa" class="btn btn-sm btn-primary" (click)="enviarPunto()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <button title="Deshacer Punto" class="btn btn-sm btn-primary" (click)="guardarPunto()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16L21 8V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21Z" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M17 21V13H7V21" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M7 3V8H15" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <button title="crearPoligono" class="btn btn-sm btn-primary" (click)="crearPoligono()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 21C19.6569 21 21 19.6569 21 18C21 16.3431 19.6569 15 18 15C16.3431 15 15 16.3431 15 18C15 19.6569 16.3431 21 18 21Z" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 9V21" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13 6H16C16.5304 6 17.0391 6.21071 17.4142 6.58579C17.7893 6.96086 18 7.46957 18 8V15" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 9C7.65685 9 9 7.65685 9 6C9 4.34315 7.65685 3 6 3C4.34315 3 3 4.34315 3 6C3 7.65685 4.34315 9 6 9Z" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <button title="Restablecer mapa" class="btn btn-sm btn-primary" (click)="borrarPuntos()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 4V10H7" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M3.51 15C4.15839 16.8404 5.38734 18.4202 7.01166 19.5014C8.63598 20.5826 10.5677 21.1066 12.5157 20.9945C14.4637 20.8824 16.3226 20.1402 17.8121 18.8798C19.3017 17.6194 20.3413 15.909 20.7742 14.0064C21.2072 12.1038 21.0101 10.112 20.2126 8.33111C19.4152 6.55025 18.0605 5.0768 16.3528 4.13277C14.6451 3.18874 12.6769 2.82527 10.7447 3.09713C8.81245 3.36898 7.02091 4.26143 5.64 5.64001L1 10" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>                    
+        </button>
+    </div>
+    <br>
+    <div class="d-flex justify-content-between">
+        <button title="crearPoligono" class="btn btn-sm btn-danger" (click)="crearPoligono()">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M18 21C19.6569 21 21 19.6569 21 18C21 16.3431 19.6569 15 18 15C16.3431 15 15 16.3431 15 18C15 19.6569 16.3431 21 18 21Z" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 9V21" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M13 6H16C16.5304 6 17.0391 6.21071 17.4142 6.58579C17.7893 6.96086 18 7.46957 18 8V15" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6 9C7.65685 9 9 7.65685 9 6C9 4.34315 7.65685 3 6 3C4.34315 3 3 4.34315 3 6C3 7.65685 4.34315 9 6 9Z" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
+        <button title="crearPoligono" class="btn btn-sm btn-danger" (click)="false">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 20H21" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M6.62134 19.3787C6.22351 19.7765 5.68395 20 5.12134 20C4.84276 20 4.56691 19.9451 4.30954 19.8385C4.05217 19.7319 3.81832 19.5757 3.62134 19.3787C3.42436 19.1817 3.2681 18.9478 3.16149 18.6905C3.05489 18.4331 3.00002 18.1573 3.00002 17.8787C3.00002 17.6001 3.05489 17.3243 3.16149 17.0669C3.2681 16.8095 3.42436 16.5757 3.62134 16.3787L16.1213 3.87868L20.1213 2.87868L19.1213 6.87868L6.62134 19.3787Z" stroke="#FFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M9.12134 16.8787L6.12134 13.8787" stroke="#FFF" stroke-width="2"/>
+            </svg>
+        </button>
+    </div>
+    <hr>
+    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item" role="presentation">
+          <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Puntos</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Poligonos</button>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab" tabindex="0">
+            <app-listapuntos></app-listapuntos>
+        </div>
+        <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0">
+            <app-listapoligonos></app-listapoligonos>
+        </div>
+      </div>
 </div>

@@ -13,6 +13,8 @@ import { LeafmapComponent } from './components/leafmap/leafmap.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
+import { ListapuntosComponent } from './components/listapuntos/listapuntos.component';
+import { ListapoligonosComponent } from './components/listapoligonos/listapoligonos.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +26,8 @@ import { MatIconModule } from '@angular/material/icon';
     MapaComponent,
     ListaComponent,
     LeafmapComponent,
+    ListapuntosComponent,
+    ListapoligonosComponent,
   ],
   imports: [
     BrowserModule,

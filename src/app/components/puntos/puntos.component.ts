@@ -40,6 +40,10 @@ export class PuntosComponent implements OnInit {
     });
   }
 
+  guardarPunto(){
+    // guardar punto en la BD
+  }
+
   ngOnInit():void{
     this.registrador.mostrar_punto.subscribe(data =>{
       this.punto.latitud = data.data.latitud;
