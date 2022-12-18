@@ -10,6 +10,9 @@ import { PuntosComponent } from './components/puntos/puntos.component';
 import { MapaComponent } from './components/mapa/mapa.component';
 import { ListaComponent } from './components/lista/lista.component';
 import { LeafmapComponent } from './components/leafmap/leafmap.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatTreeModule } from '@angular/material/tree';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -20,11 +23,14 @@ import { LeafmapComponent } from './components/leafmap/leafmap.component';
     PuntosComponent,
     MapaComponent,
     ListaComponent,
-    LeafmapComponent
+    LeafmapComponent,
   ],
   imports: [
     BrowserModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatTreeModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent]
