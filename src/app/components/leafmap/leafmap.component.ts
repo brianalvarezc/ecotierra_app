@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
+import { RegistradorService } from 'src/app/services/registrador.service';
 
 @Component({
   selector: 'app-leafmap',
@@ -7,10 +8,21 @@ import * as L from 'leaflet';
   styleUrls: ['./leafmap.component.css']
 })
 export class LeafmapComponent implements OnInit, AfterViewInit {
-  
-  constructor() { }
 
-  ngOnInit() {
+  constructor(private registrador:RegistradorService) { }
+
+  ngOnInit():void {
+    this.registrador.registro_punto.subscribe( data => {
+      this.punto.latitud = data.data.latitud;
+      this.punto.longitud = data.data.longitud;
+      this.ponerMarcador();
+    });
+
+    this.registrador.registro_poligono.subscribe( data => {
+      this.punto.latitud = data.data.latitud;
+      this.punto.longitud = data.data.longitud;
+      this.crearPoligono();
+    });
   }
 
   // necesarios para inicializar el mapa
@@ -26,9 +38,9 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
   // definicion del mapa
   map:L.Map = new L.Map(this.div_mapa);
   // definicion del marcador
-  marker:L.Marker = new L.Marker([this.punto.latitud, this.punto.longitud]);
+  markers:L.LatLngExpression[] = [];
   
-  
+
   // funcion que inicia el mapa luego de renderizar la vista de app-leafmap
   ngAfterViewInit() {
     this.createDiv();
@@ -43,6 +55,8 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
       zoom
     );
 
+    this.map.on("click", (event) => this.clickMap(event));
+
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       minZoom: 3,
@@ -50,7 +64,7 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
     });
 
     tiles.addTo(this.map);
-    this.marker.addTo(this.map);
+    new L.Marker([this.punto.latitud, this.punto.longitud]).addTo(this.map);
   }
 
   // metodos de la clase
@@ -65,5 +79,24 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
     this.map.remove();
   }
 
+  ponerMarcador(){
+    let marker = new L.Marker([this.punto.latitud, this.punto.longitud]);
+    this.markers.push(marker.getLatLng());
+    marker.addTo(this.map);
+    // this.map.setView([this.punto.latitud, this.punto.longitud], this.zoom)
+  }
+
+  clickMap(event:L.LeafletMouseEvent){
+    this.punto.latitud = event.latlng.lat;
+    this.punto.longitud = event.latlng.lng;
+    this.ponerMarcador();
+  }
+
+  crearPoligono(){
+    let polygon = L.polygon(this.markers, { color: "red"})
+    polygon.addTo(this.map)
+    // se limpia los marcadores para poder dibujar nuevos poligonos luego de crear uno
+    this.markers = [];
+  }
 
 }

@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { RegistradorService } from 'src/app/services/registrador.service';
 
 @Component({
   selector: 'app-puntos',
@@ -6,16 +7,26 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./puntos.component.css']
 })
 export class PuntosComponent implements OnInit {
-  @Input() punto:{latitud:number, longitud:number} = {
+
+  constructor(private registrador:RegistradorService){}
+
+  punto:{latitud:number, longitud:number} = {
     latitud: 11.2409295, 
     longitud: -74.2164088
   };
 
   enviarPunto(){
-    console.log(this.punto)
+    this.registrador.registro_punto.emit({
+      data: this.punto
+    });
+  }
+
+  crearPoligono(){
+    this.registrador.registro_poligono.emit({
+      data: this.punto
+    });
   }
 
   ngOnInit(){
-    console.log(this.punto);
   }
 }
