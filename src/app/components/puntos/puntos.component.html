@@ -1,9 +1,9 @@
 <div class="registrador">
     <h5>Registrador</h5>
     Latitud:
-    <input type="text" class="form-control">
+    <input type="text" class="form-control" [(ngModel)]="punto.latitud">
     Longitud:
-    <input type="text" class="form-control">
+    <input type="text" class="form-control" [(ngModel)]="punto.longitud">
     <br>
-    <button class="btn btn-primary">Guardar</button>
+    <button class="btn btn-primary" (click)="enviarPunto()">Guardar</button>
 </div>

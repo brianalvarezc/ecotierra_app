@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 
 @Component({
@@ -6,8 +6,17 @@ import { Component } from '@angular/core';
   templateUrl: './mapa.component.html',
   styleUrls: ['./mapa.component.css']
 })
-export class MapaComponent{
+export class MapaComponent implements OnInit {
+
+  punto:{latitud:number, longitud:number} = {latitud: 1, longitud: 0};
 
   constructor(){}
+
+  ngOnInit(){
+    console.log(this.punto)
+  }
+
+  // se declaran todos los atributos que se van a compartir
+
 
 }
