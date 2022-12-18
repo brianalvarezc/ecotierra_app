@@ -8,6 +8,7 @@ import { IdiomaComponent } from './components/idioma/idioma.component';
 import { PuntosComponent } from './components/puntos/puntos.component';
 import { MapaComponent } from './components/mapa/mapa.component';
 import { ListaComponent } from './components/lista/lista.component';
+import { LeafmapComponent } from './components/leafmap/leafmap.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { ListaComponent } from './components/lista/lista.component';
     IdiomaComponent,
     PuntosComponent,
     MapaComponent,
-    ListaComponent
+    ListaComponent,
+    LeafmapComponent
   ],
   imports: [
     BrowserModule
