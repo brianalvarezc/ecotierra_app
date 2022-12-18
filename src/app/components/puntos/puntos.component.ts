@@ -27,6 +27,23 @@ export class PuntosComponent implements OnInit {
     });
   }
 
-  ngOnInit(){
+  borrarPuntos(){
+    this.punto = {latitud:0, longitud: 0};
+    this.registrador.borrar_puntos.emit({
+      data: this.punto
+    });
+  }
+
+  deshacerPunto(){
+    this.registrador.deshacer_punto.emit({
+      data: this.punto
+    });
+  }
+
+  ngOnInit():void{
+    this.registrador.mostrar_punto.subscribe(data =>{
+      this.punto.latitud = data.data.latitud;
+      this.punto.longitud = data.data.longitud;
+    });
   }
 }

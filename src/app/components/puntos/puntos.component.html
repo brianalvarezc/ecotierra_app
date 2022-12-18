@@ -6,8 +6,18 @@
     <input type="text" class="form-control" [(ngModel)]="punto.longitud">
     <br>
     <div class="d-flex justify-content-between">
-        <button class="btn btn-success" (click)="enviarPunto()">Guardar Punto</button>
-        &nbsp;
-        <button class="btn btn-warning" (click)="crearPoligono()">Crear pol&oacute;gono</button>
     </div>
+    <div class="row">
+        <div class="col-sm">
+            <button class="btn btn-success" (click)="enviarPunto()">Poner Marcador</button>
+            &nbsp;
+            <button class="btn btn-secondary" (click)="deshacerPunto()">Guardar punto</button>
+        </div>
+        <div class="col-sm">
+            <button class="btn btn-primary" (click)="crearPoligono()">Crear pol&iacute;gono</button>
+            &nbsp;
+            <button class="btn btn-danger" (click)="borrarPuntos()">Restablecer mapa</button>
+        </div>
+    </div>
+
 </div>

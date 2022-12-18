@@ -6,5 +6,9 @@ import { Injectable, EventEmitter, Output } from '@angular/core';
 export class RegistradorService {
   @Output() registro_punto:EventEmitter<any> = new EventEmitter();
   @Output() registro_poligono:EventEmitter<any> = new EventEmitter();
+  @Output() borrar_puntos:EventEmitter<any> = new EventEmitter();
+  @Output() deshacer_punto:EventEmitter<any> = new EventEmitter();
+  @Output() mostrar_punto:EventEmitter<any> = new EventEmitter();
+  
   constructor() { }
 }

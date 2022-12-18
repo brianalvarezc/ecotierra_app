@@ -12,6 +12,7 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
   constructor(private registrador:RegistradorService) { }
 
   ngOnInit():void {
+    // crear un marcador desde el comonente puntos
     this.registrador.registro_punto.subscribe( data => {
       this.punto.latitud = data.data.latitud;
       this.punto.longitud = data.data.longitud;
@@ -23,12 +24,23 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
       this.punto.longitud = data.data.longitud;
       this.crearPoligono();
     });
+    
+    // restablecer mapa desde componente puntos
+    this.registrador.borrar_puntos.subscribe( data => this.iniciarMapa());
+
+    // this.registrador.deshacer_punto.subscribe( data => this.deshacerPunto());
   }
 
   // necesarios para inicializar el mapa
   div_mapa:HTMLElement = document.createElement('section');
 
   // atributos de la clase
+  punto_inicial:{latitud:number, longitud:number} = {
+    latitud: 11.2409295, 
+    longitud: -74.2164088
+  };
+  zoom_inicial:number = 10;
+
   punto:{latitud:number, longitud:number} = {
     latitud: 11.2409295, 
     longitud: -74.2164088
@@ -43,9 +55,14 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
 
   // funcion que inicia el mapa luego de renderizar la vista de app-leafmap
   ngAfterViewInit() {
+    this.iniciarMapa();
+    // new L.Marker([this.punto.latitud, this.punto.longitud]).addTo(this.map);
+  }
+
+  iniciarMapa(){
     this.createDiv();
-    let punto = this.punto;
-    let zoom = this.zoom;
+    let punto = this.punto_inicial;
+    let zoom = this.zoom_inicial;
 
     // para evita el error de que ya está inicializado el container del map
     this.clearMap();
@@ -64,7 +81,6 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
     });
 
     tiles.addTo(this.map);
-    new L.Marker([this.punto.latitud, this.punto.longitud]).addTo(this.map);
   }
 
   // metodos de la clase
@@ -83,13 +99,14 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
     let marker = new L.Marker([this.punto.latitud, this.punto.longitud]);
     this.markers.push(marker.getLatLng());
     marker.addTo(this.map);
-    // this.map.setView([this.punto.latitud, this.punto.longitud], this.zoom)
+    this.map.setView([this.punto.latitud, this.punto.longitud], this.zoom)
   }
 
   clickMap(event:L.LeafletMouseEvent){
     this.punto.latitud = event.latlng.lat;
     this.punto.longitud = event.latlng.lng;
     this.ponerMarcador();
+    this.mostrarPunto(); 
   }
 
   crearPoligono(){
@@ -97,6 +114,16 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
     polygon.addTo(this.map)
     // se limpia los marcadores para poder dibujar nuevos poligonos luego de crear uno
     this.markers = [];
+  }
+
+  deshacerPunto(){
+    // this.map.removeLayer(this.markers.pop());
+  }
+
+  mostrarPunto(){
+    this.registrador.mostrar_punto.emit({
+      data: this.punto
+    });
   }
 
 }
