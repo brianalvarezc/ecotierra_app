@@ -1,1 +1,13 @@
-<p>listapuntos works!</p>
+<div *ngFor="let card of cards">
+    <div class="card w-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ card.id }}</h5>
+          <p class="card-text">latitud: {{ card.latitud }}</p>
+          <p class="card-text">longitud: {{ card.longitud }}</p>
+          <p class="card-text">creado: {{ card.creado }}</p>
+          <button class="btn btn-primary" (click)="editarPunto(card.id, card.latitud, card.longitud)">Editar</button>
+          <button class="btn btn-warning" (click)="eliminarPunto(card.id)">Eliminar</button>
+          </div>
+    </div>
+    <hr>
+</div>

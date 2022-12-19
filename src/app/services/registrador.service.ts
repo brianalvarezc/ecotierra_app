@@ -9,6 +9,10 @@ export class RegistradorService {
   @Output() borrar_puntos:EventEmitter<any> = new EventEmitter();
   @Output() deshacer_punto:EventEmitter<any> = new EventEmitter();
   @Output() mostrar_punto:EventEmitter<any> = new EventEmitter();
+  @Output() borrar_poligono:EventEmitter<any> = new EventEmitter();
+  @Output() recargar_puntos:EventEmitter<any> = new EventEmitter();
+  @Output() recargar_poligonos:EventEmitter<any> = new EventEmitter();
+  @Output() guardar_poligono:EventEmitter<any> = new EventEmitter();
   
   constructor() { }
 }

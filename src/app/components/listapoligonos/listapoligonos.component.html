@@ -1,1 +1,12 @@
-<p>listapoligonos works!</p>
+<div *ngFor="let card of cards">
+    <div class="card w-100">
+        <div class="card-body">
+          <h5 class="card-title">{{ card.id }}</h5>
+          <p class="card-text">longitud: {{ card.puntos }}</p>
+          <p class="card-text">longitud: {{ card.creado }}</p>
+          <a href="#" class="btn btn-primary">Editar</a>
+          <a href="#" class="btn btn-warning">Eliminar</a>
+        </div>
+    </div>
+    <hr>
+</div>

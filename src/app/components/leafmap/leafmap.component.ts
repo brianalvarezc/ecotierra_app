@@ -28,6 +28,9 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
     // restablecer mapa desde componente puntos
     this.registrador.borrar_puntos.subscribe( data => this.iniciarMapa());
 
+    // borra el poligono sin borrar los tag
+    this.registrador.borrar_poligono.subscribe( data => this.removePolygons());
+
     // this.registrador.deshacer_punto.subscribe( data => this.deshacerPunto());
 
     // borra el último poligono hecho
@@ -119,8 +122,8 @@ export class LeafmapComponent implements OnInit, AfterViewInit {
     let polygon = L.polygon(this.markers.map(marker => marker.getLatLng()), { color: "red"})
     polygon.addTo(this.map)
     this.polygons.push(polygon);
-    // se limpia los marcadores para poder dibujar nuevos poligonos luego de crear uno
-    // this.markers = [];
+    // se emite el evento para que se transfiera los datos de poligono al HttpClient
+    this.registrador.guardar_poligono.emit(this.markers.map(marker => marker.getLatLng()));
   }
 
   deshacerPunto(){
